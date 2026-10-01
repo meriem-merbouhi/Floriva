@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Flöriva Cosmétiques</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --rose-pale:   #fce8f0;
+      --rose-mid:    #f0c8d8;
+      --bordeaux:    #7b2d42;
+      --bordeaux-lt: #a04060;
+      --petal:       #e8b4c8;
+      --white:       #ffffff;
+      --text-soft:   #9a7080;
+      box-sizing: border-box;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+    *, *::before, *::after { box-sizing: inherit; margin: 0; padding: 0; }
+
+    html, body {
+      min-height: 100%;
+    }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      background: linear-gradient(160deg, #fce8f0 0%, #f9d8e8 40%, #f2c4d8 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 20px;
+    }
+
+    /* Petal decorations */
+    body::before, body::after {
+      content: '';
+      position: fixed;
+      border-radius: 50%;
+      opacity: 0.18;
+      pointer-events: none;
+      z-index: 0;
+    }
+    body::before {
+      width: 340px; height: 340px;
+      background: radial-gradient(circle, var(--bordeaux) 0%, transparent 70%);
+      top: -80px; right: -80px;
+    }
+    body::after {
+      width: 260px; height: 260px;
+      background: radial-gradient(circle, var(--bordeaux) 0%, transparent 70%);
+      bottom: -60px; left: -60px;
+    }
+
+    .card {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    /* Logo area */
+    .logo-wrap {
+      margin-bottom: 6px;
+    }
+
+    .logo-circle {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 18px;
+      border-radius: 50%;
+      background: var(--white);
+      box-shadow: 0 4px 24px rgba(123,45,66,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* SVG logo inline — faithful to uploaded logo */
+    .logo-svg {
+      width: 78px;
+      height: 78px;
+    }
+
+    .brand-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--bordeaux);
+      line-height: 1;
+      letter-spacing: 0.01em;
+    }
+
+    .brand-name em {
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    .brand-sub {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.72rem;
+      letter-spacing: 0.28em;
+      color: var(--bordeaux-lt);
+      margin-top: 6px;
+      margin-bottom: 8px;
+    }
+
+    .flag {
+      font-size: 1rem;
+      margin-bottom: 28px;
+      display: block;
+    }
+
+    /* Thin petal divider */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--petal), transparent);
+    }
+    .divider-icon {
+      font-size: 0.9rem;
+      color: var(--bordeaux-lt);
+      opacity: 0.7;
+    }
+
+    /* Tagline */
+    .tagline {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 0.85rem;
+      color: var(--bordeaux-lt);
+      margin-bottom: 28px;
+      line-height: 1.5;
+    }
+
+    /* Link buttons */
+    .links {
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+
+    .link-btn {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 15px 18px;
+      border-radius: 50px;
+      text-decoration: none;
+      background: var(--white);
+      border: 1.5px solid rgba(123,45,66,0.12);
+      box-shadow: 0 2px 12px rgba(123,45,66,0.08);
+      transition: transform 0.16s ease, box-shadow 0.16s ease;
+      cursor: pointer;
+    }
+
+    .link-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(123,45,66,0.16);
+    }
+    .link-btn:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 8px rgba(123,45,66,0.1);
+    }
+
+    .icon-pill {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .icon-pill svg { width: 20px; height: 20px; }
+
+    .wtsp  .icon-pill { background: #e8f5e9; }
+    .insta .icon-pill { background: #fce4ec; }
+
+    .btn-text {
+      flex: 1;
+      text-align: left;
+    }
+    .btn-text strong {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--bordeaux);
+      letter-spacing: 0.01em;
+    }
+    .btn-text small {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 300;
+      color: var(--text-soft);
+      margin-top: 2px;
+    }
+
+    .chevron {
+      color: var(--petal);
+      font-size: 1.1rem;
+      font-weight: 300;
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 32px;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: var(--bordeaux-lt);
+      opacity: 0.5;
+    }
+
+    /* Responsive — already fluid, but clamp on very wide */
+    @media (min-width: 600px) {
+      .card { max-width: 420px; }
+      .brand-name { font-size: 2.3rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .link-btn { transition: none; }
+    }
+  </style>
+</head>
+<body>
+<div class="card">
+
+  <!-- Logo -->
+  <div class="logo-wrap">
+    <div class="logo-circle">
+      <!-- Inline SVG faithful to Flöriva logo style -->
+      <svg class="logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <!-- Background circle fill -->
+        <circle cx="50" cy="50" r="50" fill="white"/>
+        <!-- Floral branch in center of ö -->
+        <g transform="translate(50,50)">
+          <!-- Stem -->
+          <line x1="0" y1="8" x2="0" y2="-18" stroke="#7b2d42" stroke-width="1.2" stroke-linecap="round"/>
+          <!-- Left branch -->
+          <line x1="0" y1="-4" x2="-8" y2="-14" stroke="#7b2d42" stroke-width="1" stroke-linecap="round"/>
+          <!-- Right branch -->
+          <line x1="0" y1="-4" x2="8" y2="-14" stroke="#7b2d42" stroke-width="1" stroke-linecap="round"/>
+          <!-- Buds -->
+          <circle cx="0" cy="-19" r="2.2" fill="#7b2d42"/>
+          <circle cx="-8" cy="-15" r="1.8" fill="#a04060"/>
+          <circle cx="8" cy="-15" r="1.8" fill="#a04060"/>
+          <!-- Small leaves -->
+          <ellipse cx="-4" cy="-9" rx="2.5" ry="1.2" fill="#a04060" transform="rotate(-30 -4 -9)" opacity="0.7"/>
+          <ellipse cx="4" cy="-9" rx="2.5" ry="1.2" fill="#a04060" transform="rotate(30 4 -9)" opacity="0.7"/>
+          <!-- Swirl/curl at base -->
+          <path d="M0,8 Q6,14 2,20 Q-2,24 -6,20" stroke="#7b2d42" stroke-width="1" fill="none" stroke-linecap="round"/>
+        </g>
+        <!-- Letter F suggestion -->
+        <text x="18" y="68" font-family="Playfair Display, Georgia, serif" font-size="42" font-weight="700" fill="#7b2d42" opacity="0.12">F</text>
+      </svg>
+    </div>
+
+    <div class="brand-name">Fl<em>ö</em>riva</div>
+    <div class="brand-sub">C O S M É T I Q U E S</div>
+    <span class="flag">🇩🇪</span>
+  </div>
+
+  <div class="divider"><span class="divider-icon">✦</span></div>
+
+  <p class="tagline">Beauté naturelle, inspirée du Maroc</p>
+
+  <!-- Links -->
+  <div class="links">
+
+    <a class="link-btn wtsp" href="https://wa.me/212610235194" target="_blank" rel="noopener">
+      <div class="icon-pill">
+        <svg viewBox="0 0 24 24" fill="#25D366" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+      </div>
+      <div class="btn-text">
+        <strong>WhatsApp</strong>
+        <small>Contactez-nous directement</small>
+      </div>
+      <span class="chevron">›</span>
+    </a>
+
+    <a class="link-btn insta" href="https://www.instagram.com/floriva.de_maroc" target="_blank" rel="noopener">
+      <div class="icon-pill">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="ig" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" style="stop-color:#f09433"/>
+              <stop offset="25%" style="stop-color:#e6683c"/>
+              <stop offset="50%" style="stop-color:#dc2743"/>
+              <stop offset="75%" style="stop-color:#cc2366"/>
+              <stop offset="100%" style="stop-color:#bc1888"/>
+            </linearGradient>
+          </defs>
+          <path fill="url(#ig)" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+        </svg>
+      </div>
+      <div class="btn-text">
+        <strong>Instagram</strong>
+        <small>@floriva.de_maroc</small>
+      </div>
+      <span class="chevron">›</span>
+    </a>
+
+  </div>
+
+  <div class="footer">flöriva cosmétiques · maroc</div>
+
+</div>
+</body>
+</html>
